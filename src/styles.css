@@ -30,6 +30,16 @@ body {
   position: absolute;
   background-color: #fff;
   border: 1px solid #ccc;
-  padding: 10px;
+  padding: 5px;
   z-index: 1000;
+}
+.Square{
+  width: 25px;
+  height: 25px;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2px;
+  border: 1px solid #000000;
 }

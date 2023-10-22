@@ -8,11 +8,14 @@ const Grid = () => {
 
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
+  const [isMouseOverPopup, setMouseOverPopup] = useState(false);
+
+  const [selectedColor, setSelectedColor] = useState('red');
 
   const toggleCellColor = (index) => {
     setCellBackgrounds((prevBackgrounds) => {
       const newBackgrounds = [...prevBackgrounds];
-      newBackgrounds[index] = prevBackgrounds[index] === 'white' ? 'red' : 'white';
+      newBackgrounds[index] = selectedColor;
       return newBackgrounds;
     });
   };
@@ -23,16 +26,36 @@ const Grid = () => {
     setPopupPosition({ x: event.clientX, y: event.clientY });
   };
 
+  const handleSquareClick = (color) => {
+    setSelectedColor(color);
+    setPopupVisible(false);
+  };
+
+  const handleMouseMove = (event) => {
+    const popupElement = document.querySelector('.popup');
+    if (popupElement && popupElement.contains(event.target)) {
+      setMouseOverPopup(true);
+    } else {
+      setMouseOverPopup(false);
+      setPopupVisible(false);
+    }
+  };
+
   useEffect(() => {
     const handleClickOutside = () => {
-      setPopupVisible(false);
+      if (!isMouseOverPopup) {
+        setPopupVisible(false);
+      }
     };
-
+  
     window.addEventListener('click', handleClickOutside);
+    window.addEventListener('mousemove', handleMouseMove);
+  
     return () => {
       window.removeEventListener('click', handleClickOutside);
+      window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, []);
+  }, [isMouseOverPopup]);
 
   const cells = Array.from({ length: 10000 }, (_, index) => index + 1);
 
@@ -55,7 +78,11 @@ const Grid = () => {
             left: `${popupPosition.x}px`,
           }}
         >
-          
+          <view className='Square' style={{backgroundColor:'#FF00FF'}}/>
+          <view className='Square' style={{backgroundColor:'#FF7F7E'}}/>
+          <view className='Square' style={{backgroundColor:'#0600FF'}}/>
+          <view className='Square' style={{backgroundColor:'#FFFF00'}}/>
+          <view className='Square' style={{backgroundColor:'#7EFFFF'}}/>
         </div>
       )}
     </div>
