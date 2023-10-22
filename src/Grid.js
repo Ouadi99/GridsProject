@@ -6,11 +6,10 @@ const Grid = () => {
     Array.from({ length: 10000 }, () => 'white')
   );
 
-  const [isPopupVisible, setPopupVisible] = useState(false);
   const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
   const [isMouseOverPopup, setMouseOverPopup] = useState(false);
-
-  const [selectedColor, setSelectedColor] = useState('red');
+  const [isPopupVisible, setPopupVisible] = useState(false);
+const [selectedColor, setSelectedColor] = useState('red');
 
   const toggleCellColor = (index) => {
     setCellBackgrounds((prevBackgrounds) => {
@@ -64,7 +63,8 @@ const Grid = () => {
       {cells.map((cell, index) => (
         <div
           key={cell}
-          className={`cell ${cellBackgrounds[index] === 'red' ? 'red' : ''}`}
+          className="cell"
+          style={{ backgroundColor: cellBackgrounds[index] }}
           onClick={() => toggleCellColor(index)}
           onContextMenu={(event) => handleContextMenu(event, index)}
         ></div>
@@ -78,11 +78,11 @@ const Grid = () => {
             left: `${popupPosition.x}px`,
           }}
         >
-          <view className='Square' style={{backgroundColor:'#FF00FF'}}/>
-          <view className='Square' style={{backgroundColor:'#FF7F7E'}}/>
-          <view className='Square' style={{backgroundColor:'#0600FF'}}/>
-          <view className='Square' style={{backgroundColor:'#FFFF00'}}/>
-          <view className='Square' style={{backgroundColor:'#7EFFFF'}}/>
+          <button className='Square' style={{backgroundColor:'#FF00FF'}} onClick={() => handleSquareClick('#FF00FF')}/>
+          <button className='Square' style={{backgroundColor:'#FF7F7E'}} onClick={() => handleSquareClick('#FF7F7E')}/>
+          <button className='Square' style={{backgroundColor:'#0600FF'}} onClick={() => handleSquareClick('#0600FF')}/>
+          <button className='Square' style={{backgroundColor:'#FFFF00'}} onClick={() => handleSquareClick('#FFFF00')}/>
+          <button className='Square' style={{backgroundColor:'#7EFFFF'}} onClick={() => handleSquareClick('#7EFFFF')}/>
         </div>
       )}
     </div>
